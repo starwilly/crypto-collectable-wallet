@@ -11,13 +11,10 @@ type Params = {
 
 export default function CollectableDetailPage() {
   const { contractAddress, tokenId } = useParams<Params>();
-  const { data: collectable, isLoading } = useCollectable(
-    contractAddress,
-    tokenId
-  );
-  return isLoading || !collectable ? (
-    <Spinner />
-  ) : (
-    <CollectableDetail collectable={collectable} />
-  );
+  const { data: collectable } = useCollectable(contractAddress, tokenId);
+
+  if (!collectable) {
+    return <Spinner />;
+  }
+  return <CollectableDetail collectable={collectable} />;
 }

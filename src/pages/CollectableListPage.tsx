@@ -10,19 +10,18 @@ const ethOwner = "0x960DE9907A2e2f5363646d48D7FB675Cd2892e91";
 export default function CollectableListPage() {
   const { data, fetchNextPage, hasNextPage, isLoading } =
     useCollectables(ethOwner);
-  if (!data) {
-    return <div></div>;
-  }
-  const dataLength = data.pages.reduce(
+
+  const dataLength = (data?.pages ?? []).reduce(
     (acc, page) => acc + page.data.length,
     0
   );
+
   return (
     <div>
       <Heading textAlign="center" mb={4}>
         Crypto Collectable Wallet
       </Heading>
-      {isLoading ? (
+      {isLoading || !data ? (
         <Spinner />
       ) : (
         <InfiniteScroll
