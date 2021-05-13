@@ -2,12 +2,27 @@ import client from "./client";
 import { Collectable } from "../models/collectable";
 import { PageResponse } from "../models";
 
+/**
+ *  Get single collectable
+ *
+ * @param contractAddress - Address of the contract for this NFT
+ * @param tokenId -Token ID for this item
+ * @returns
+ */
 export function fetchCollectable(contractAddress: string, tokenId: string) {
   return client
     .get(`/asset/${contractAddress}/${tokenId}`)
     .then((resp) => resp.data as Collectable);
 }
 
+/**
+ *  Get collectable list
+ *
+ * @param owner - Address of the owner of the assets
+ * @param page - Page index
+ * @param pageSize - Max results to return
+ * @returns
+ */
 export function fetchCollectables(
   owner: string,
   page: number = 0,

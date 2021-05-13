@@ -1,9 +1,22 @@
-This project was bootstrapped with
-[Create React App](https://github.com/facebook/create-react-app).
+Demo: https://crypto-collectable-wallet.vercel.app
 
-## Available Scripts
+## Package
 
-In the project directory, you can run:
+- Ract
+- React-Router
+- React-Query: Defined hooks to query api endpoints and cache
+- Axios: Http client to send ajax request
+- Chakra: Component lib
+- react-infinite-scroll-component: Infinite loading
+
+## API Query and Cache
+
+- The utils to consume api endpoints are defined under `api` folder.
+- I also defined hooks using `React-Query` so that we could easily handle the query state and cache the response. When user click from collectable list page to collectable details page, it will get the data from cache then fetch the data. Hence, it will feel fast.
+
+---
+
+## Scripts
 
 ### `npm start`
 
