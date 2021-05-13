@@ -25,7 +25,7 @@ function fetchCollectables(
       const collectables = resp.data.assets ?? [];
       return {
         data: collectables,
-        hasNext: collectables.length < pageSize,
+        hasNext: collectables.length === pageSize,
       };
     });
 }
