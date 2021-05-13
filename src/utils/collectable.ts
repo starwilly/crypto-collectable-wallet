@@ -1,4 +1,4 @@
-import { useInfiniteQuery, useQuery } from "react-query";
+import { useInfiniteQuery, useQuery, useQueryClient } from "react-query";
 import { Collectable, PageResponse } from "../models";
 import client from "./client";
 
@@ -38,11 +38,29 @@ function useCollectable(contractAddress: string, tokenId: string) {
 }
 
 function useCollectables(owner: string, pageSize: number = 20) {
+  const queryClient = useQueryClient();
   return useInfiniteQuery({
     queryKey: ["collectables", { owner }],
     queryFn: ({ pageParam: page }) => fetchCollectables(owner, page, pageSize),
     getNextPageParam: (lastPage: PageResponse<Collectable>, pages) =>
       lastPage.hasNext ? pages.length : undefined,
+    onSuccess: ({ pages }) => {
+      // update cache for collectable, so it will be fast when user
+      // go from list page to detail page
+      const collectables = pages[pages.length - 1].data;
+      collectables.forEach((c) => {
+        queryClient.setQueryData(
+          [
+            "collectable",
+            {
+              contractAddress: c.asset_contract.address,
+              tokenId: c.token_id,
+            },
+          ],
+          c
+        );
+      });
+    },
   });
 }
 

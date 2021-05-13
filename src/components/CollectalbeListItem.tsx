@@ -1,5 +1,5 @@
 import React from "react";
-import { Box, Image, Skeleton, Text } from "@chakra-ui/react";
+import { AspectRatio, Box, Image, Skeleton, Text } from "@chakra-ui/react";
 import { Collectable } from "../models/collectable";
 import { Link } from "react-router-dom";
 
@@ -20,18 +20,16 @@ export default function CollectableListItem({ collectable }: Props) {
       height={"100%"}
     >
       <Link to={url}>
-        <Box width={"100%"} pb={"75%"} overflow="hidden" position="relative">
-          <Box position="absolute" top={0} bottom={0} left={0} right={0} mb={2}>
-            <Image
-              src={collectable.image_url}
-              alt={collectable.collection.name}
-              width={"100%"}
-              height={"100%"}
-              objectFit="cover"
-              fallback={<Skeleton width={"100%"} height={"100%"}></Skeleton>}
-            />
-          </Box>
-        </Box>
+        <AspectRatio width={"100%"} ratio={4 / 3}>
+          <Image
+            src={collectable.image_url}
+            alt={collectable.collection.name}
+            width={"100%"}
+            height={"100%"}
+            objectFit="cover"
+            fallback={<Skeleton width={"100%"} height={"100%"}></Skeleton>}
+          />
+        </AspectRatio>
         <Text fontSize="xl" textAlign="center">
           {collectable.collection.name}
         </Text>

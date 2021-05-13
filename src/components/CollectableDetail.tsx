@@ -1,7 +1,15 @@
-import { Box, Container, Flex, Heading, HStack, Text } from "@chakra-ui/layout";
+import {
+  AspectRatio,
+  Box,
+  Container,
+  Flex,
+  Heading,
+  HStack,
+  Text,
+} from "@chakra-ui/layout";
 import React from "react";
 import { Collectable } from "../models/collectable";
-import { Button, IconButton, Image } from "@chakra-ui/react";
+import { Button, IconButton, Image, Skeleton } from "@chakra-ui/react";
 import { ChevronLeftIcon } from "@chakra-ui/icons";
 import { useHistory } from "react-router";
 
@@ -25,6 +33,7 @@ export default function CollectableDetail({ collectable }: Props) {
       borderWidth={1}
       spacing={"2"}
       position="fixed"
+      zIndex={1}
       top={0}
       w={"full"}
     >
@@ -69,6 +78,11 @@ export default function CollectableDetail({ collectable }: Props) {
           w={"100%"}
           src={collectable.image_url}
           alt={collectable.collection.name}
+          fallback={
+            <AspectRatio width={"100%"} ratio={4 / 3}>
+              <Skeleton width={"100%"} height={"100%"}></Skeleton>
+            </AspectRatio>
+          }
         />
         <Text fontSize={"xl"} mb={4}>
           {collectable.collection.name}
