@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const apiBaseUrl = "https://api.opensea.io/api/v1/";
+const apiBaseUrl = process.env.REACT_APP_API_BASE;
 
 const client = axios.create({
   baseURL: apiBaseUrl,
